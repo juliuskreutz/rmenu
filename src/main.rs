@@ -45,8 +45,8 @@ impl Rmenu {
 
     fn draw_prompt(&self) {
         let draw = &self.draw;
-        draw.draw_rectangle(0, self.prompt.width, config::HL_COLOR);
-        draw.draw_text(0, &self.prompt.text, config::TEXT_HL_COLOR);
+        draw.rectangle(0, self.prompt.width, config::HL_COLOR);
+        draw.text(0, &self.prompt.text, config::TEXT_HL_COLOR);
     }
 
     fn draw_text_field(&mut self) {
@@ -58,8 +58,8 @@ impl Rmenu {
             return;
         }
 
-        draw.draw_rectangle(self.prompt.width, self.text_field.width, config::BG_COLOR);
-        draw.draw_text(self.prompt.width, text, config::TEXT_COLOR);
+        draw.rectangle(self.prompt.width, self.text_field.width, config::BG_COLOR);
+        draw.text(self.prompt.width, text, config::TEXT_COLOR);
     }
 
     fn draw_items(&mut self) {
@@ -78,7 +78,7 @@ impl Rmenu {
         self.search_field.items = items.clone();
 
         let mut position = self.prompt.width + self.text_field.width;
-        draw.draw_rectangle(position, self.search_field.width, config::BG_COLOR);
+        draw.rectangle(position, self.search_field.width, config::BG_COLOR);
 
         let mut visited = false;
         for item in items {
@@ -98,8 +98,8 @@ impl Rmenu {
                 text_color = config::TEXT_COLOR;
             }
 
-            draw.draw_rectangle(position, item.width, box_color);
-            draw.draw_text(position, &item.text, text_color);
+            draw.rectangle(position, item.width, box_color);
+            draw.text(position, &item.text, text_color);
 
             position += item.width;
         }
@@ -185,11 +185,11 @@ impl Rmenu {
 
         let new_position = old_position - new_item.width;
 
-        draw.draw_rectangle(old_position, old_item.width, config::BG_COLOR);
-        draw.draw_rectangle(new_position, new_item.width, config::HL_COLOR);
+        draw.rectangle(old_position, old_item.width, config::BG_COLOR);
+        draw.rectangle(new_position, new_item.width, config::HL_COLOR);
 
-        draw.draw_text(old_position, &old_item.text, config::TEXT_COLOR);
-        draw.draw_text(new_position, &new_item.text, config::TEXT_HL_COLOR);
+        draw.text(old_position, &old_item.text, config::TEXT_COLOR);
+        draw.text(new_position, &new_item.text, config::TEXT_HL_COLOR);
 
         self.search_field.cursor -= 1;
     }
@@ -221,11 +221,11 @@ impl Rmenu {
             return;
         }
 
-        draw.draw_rectangle(old_position, old_item.width, config::BG_COLOR);
-        draw.draw_rectangle(new_position, new_item.width, config::HL_COLOR);
+        draw.rectangle(old_position, old_item.width, config::BG_COLOR);
+        draw.rectangle(new_position, new_item.width, config::HL_COLOR);
 
-        draw.draw_text(old_position, &old_item.text, config::TEXT_COLOR);
-        draw.draw_text(new_position, &new_item.text, config::TEXT_HL_COLOR);
+        draw.text(old_position, &old_item.text, config::TEXT_COLOR);
+        draw.text(new_position, &new_item.text, config::TEXT_HL_COLOR);
 
         self.search_field.cursor += 1;
     }

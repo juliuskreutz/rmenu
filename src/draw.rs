@@ -27,22 +27,26 @@ impl Draw {
         )
     }
 
-    pub fn draw_text(&self, x: u16, text: &str, color: (f64, f64, f64)) {
+    pub fn text(&self, x: u16, text: &str, color: u32) {
         self.layout.set_text(text);
         self.context
             .move_to((x + crate::config::MARGIN) as f64, self.text_middle);
-        self.set_color(color);
+        self.color(color);
         pangocairo::show_layout(&self.context, &self.layout);
     }
 
-    pub fn draw_rectangle(&self, x: u16, width: u16, color: (f64, f64, f64)) {
+    pub fn rectangle(&self, x: u16, width: u16, color: u32) {
         self.context
             .rectangle(x as f64, 0., width as f64, crate::config::HEIGHT as f64);
-        self.set_color(color);
+        self.color(color);
         self.context.fill().unwrap();
     }
 
-    fn set_color(&self, color: (f64, f64, f64)) {
-        self.context.set_source_rgb(color.0, color.1, color.2);
+    fn color(&self, color: u32) {
+        self.context.set_source_rgb(
+            (color >> 16) as f64 / 255.,
+            (color >> 8 & 0x0000ff) as f64 / 255.,
+            (color & 0x0000ff) as f64 / 255.,
+        );
     }
 }
