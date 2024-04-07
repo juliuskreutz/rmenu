@@ -136,8 +136,6 @@ impl Rmenu {
 
                     let keysym = self.state.key_get_one_sym(detail.into());
 
-                    println!("{:?}", keysym);
-
                     match keysym {
                         xkb::Keysym::Escape => return,
                         xkb::Keysym::Return => {
@@ -184,50 +182,9 @@ impl Rmenu {
 
             self.connection.flush().unwrap();
         }
-
-        // while let Some(event) = self.connection.wait_for_event() {
-        //     if event.response_type() == xcb::KEY_PRESS {
-        //         let key_press: &xcb::KeyPressEvent = unsafe { xcb::cast_event(&event) };
-        //
-        //         let keymap = self
-        //             .keymap
-        //             .get_keysym(key_press.detail(), key_press.state());
-        //
-        //         if keymap::is_escape(keymap) {
-        //             return;
-        //         }
-        //
-        //         if keymap::is_return(keymap) {
-        //             print!("{}", self.search_field.get_selection());
-        //             return;
-        //         }
-        //
-        //         if keymap::is_left(keymap) {
-        //             self.move_cursor_left();
-        //             self.connection.flush();
-        //             continue;
-        //         } else if keymap::is_right(keymap) {
-        //             self.move_cursor_right();
-        //             self.connection.flush();
-        //             continue;
-        //         }
-        //
-        //         if keymap::is_backspace(keymap) {
-        //             self.text_field.text.pop();
-        //         } else {
-        //             self.text_field.text.push_str(self.keymap.get_key(keymap));
-        //         }
-        //
-        //         self.draw_text_field();
-        //         self.draw_items();
-        //         self.connection.flush();
-        //     }
-        // }
     }
 
     fn move_cursor_left(&mut self) {
-        println!("move_cursor_left");
-
         let draw = &self.draw;
         let cursor = self.search_field.cursor;
         let indent = self.prompt.width + self.text_field.width;
@@ -260,8 +217,6 @@ impl Rmenu {
     }
 
     fn move_cursor_right(&mut self) {
-        println!("move_cursor_right");
-
         let draw = &self.draw;
         let cursor = self.search_field.cursor;
         let indent = self.prompt.width + self.text_field.width;
