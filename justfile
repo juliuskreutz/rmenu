@@ -3,6 +3,7 @@ build:
 
 install:
 	cp -f target/release/rmenu /usr/local/bin/
+	cp -f target/release/rmenu_path /usr/local/bin/
 	cp -f rmenu_run /usr/local/bin/
 
 uninstall:

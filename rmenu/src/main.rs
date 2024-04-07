@@ -1,3 +1,8 @@
+use std::{
+    env,
+    io::{self, BufRead},
+};
+
 mod config;
 mod draw;
 mod keymap;
@@ -232,6 +237,15 @@ impl Rmenu {
 }
 
 fn main() {
+    let mut args = env::args();
+    args.next();
+
+    let items = io::stdin()
+        .lock()
+        .lines()
+        .map_while(Result::ok)
+        .collect::<Vec<String>>();
+
     let (connection, screen_num) = xcb::Connection::connect(None).unwrap();
     let setup = connection.get_setup();
     let screen = setup.roots().nth(screen_num as usize).unwrap();
@@ -308,7 +322,7 @@ fn main() {
     let text_field = parts::TextField::new();
 
     let search_field_width = width - prompt.width - text_field.width;
-    let items = get_items()
+    let items = items
         .iter()
         .map(|text| {
             parts::Item::new(
@@ -332,18 +346,6 @@ fn main() {
     );
 
     rmenu.run();
-}
-
-fn get_items() -> std::collections::HashSet<String> {
-    std::env::var("PATH")
-        .unwrap()
-        .split(':')
-        .flat_map(std::fs::read_dir)
-        .flat_map(|read| {
-            read.flatten()
-                .map(|entry| entry.file_name().into_string().unwrap())
-        })
-        .collect::<std::collections::HashSet<String>>()
 }
 
 fn ord(x: &parts::Item, y: &parts::Item, search_text: &str) -> std::cmp::Ordering {
