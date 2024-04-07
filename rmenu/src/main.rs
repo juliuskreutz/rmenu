@@ -135,6 +135,9 @@ impl Rmenu {
                     let detail = key_press.detail();
 
                     let keysym = self.state.key_get_one_sym(detail.into());
+
+                    println!("{:?}", keysym);
+
                     match keysym {
                         xkb::Keysym::Escape => return,
                         xkb::Keysym::Return => {
@@ -162,6 +165,9 @@ impl Rmenu {
                             self.text_field.text.push(c);
                         }
                     }
+
+                    self.draw_text_field();
+                    self.draw_items();
                 }
                 xcb::Event::Xkb(xcb::xkb::Event::StateNotify(state_notify)) => {
                     self.state.update_mask(
@@ -176,8 +182,6 @@ impl Rmenu {
                 _ => {}
             }
 
-            self.draw_text_field();
-            self.draw_items();
             self.connection.flush().unwrap();
         }
 
@@ -222,6 +226,8 @@ impl Rmenu {
     }
 
     fn move_cursor_left(&mut self) {
+        println!("move_cursor_left");
+
         let draw = &self.draw;
         let cursor = self.search_field.cursor;
         let indent = self.prompt.width + self.text_field.width;
@@ -254,6 +260,8 @@ impl Rmenu {
     }
 
     fn move_cursor_right(&mut self) {
+        println!("move_cursor_right");
+
         let draw = &self.draw;
         let cursor = self.search_field.cursor;
         let indent = self.prompt.width + self.text_field.width;
