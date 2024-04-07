@@ -32,7 +32,7 @@ impl Draw {
         self.context
             .move_to((x + crate::config::MARGIN) as f64, self.text_middle);
         self.color(color);
-        pangocairo::show_layout(&self.context, &self.layout);
+        pangocairo::functions::show_layout(&self.context, &self.layout);
     }
 
     pub fn rectangle(&self, x: u16, width: u16, color: u32) {

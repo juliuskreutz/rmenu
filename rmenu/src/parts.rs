@@ -1,10 +1,12 @@
+use xcb::x;
+
 pub struct Window {
     pub width: u16,
-    pub id: u32,
+    pub id: x::Window,
 }
 
 impl Window {
-    pub fn new(width: u16, id: u32) -> Self {
+    pub fn new(width: u16, id: x::Window) -> Self {
         Self { width, id }
     }
 }
