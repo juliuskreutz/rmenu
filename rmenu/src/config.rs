@@ -1,4 +1,4 @@
-pub const FONT: &str = "Comic Code Ligatures 13";
+pub const FONT: &str = "FiraCode Nerd Font 13";
 pub const PROMPT: &str = "Run:";
 
 pub const HEIGHT: u16 = 32;
@@ -12,7 +12,6 @@ pub const TEXT_HL_COLOR: u32 = 0xffffff;
 
 pub const PRIORITY_ITEMS: &[&str] = &[
     "discord",
-    "microsoft-edge-stable",
     "code",
     "idea",
     "thunderbird",
