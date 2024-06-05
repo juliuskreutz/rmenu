@@ -74,5 +74,9 @@
       apps.default = flake-utils.lib.mkApp {
         drv = rmenu;
       };
+
+      devShells.default = craneLib.devShell {
+        checks = self.checks.${system};
+      };
     }));
 }
