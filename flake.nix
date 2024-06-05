@@ -77,6 +77,11 @@
 
       devShells.default = craneLib.devShell {
         checks = self.checks.${system};
+
+        packages = with pkgs; [
+          rust-analyzer
+          taplo
+        ];
       };
     }));
 }
